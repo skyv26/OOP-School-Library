@@ -2,6 +2,7 @@ require_relative '../interface/nameable'
 
 class Decorator < Nameable
   def initialize(nameable_object)
+    super()
     @nameable = nameable_object
   end
 
