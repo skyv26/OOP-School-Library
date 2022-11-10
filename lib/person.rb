@@ -1,7 +1,8 @@
 require 'securerandom'
 
 class Person
-  attr_accessor :id, :name, :age, :parent_permission
+  attr_accessor :name, :age
+  attr_reader :id
 
   def initialize(age, name = 'Unknown', parent_permission: true)
     @id = SecureRandom.hex(5)
