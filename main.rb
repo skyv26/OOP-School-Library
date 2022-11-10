@@ -1,5 +1,5 @@
 require_relative './lib/person'
-require_relative './decorators/capitalize_decorator'
+require_relative './decorators/decorator'
 
 person = Person.new(22, 'maximilianus')
 puts person.correct_name
