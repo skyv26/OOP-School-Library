@@ -1,11 +1,13 @@
 require './lib/student'
 require './lib/teacher'
 require './lib/book/book'
+require './lib/rental/rental'
 
 class App
   def initialize
     @book_list = []
     @person_list = []
+    @rental_list = []
     @return_check = true
   end
 
@@ -48,6 +50,12 @@ class App
     when 4
       book_choice
       true
+    when 5
+      rental_choice
+      true
+    when
+      all_rental
+      true
     when 7
       exit
     end
@@ -70,9 +78,29 @@ class App
       print "\nPlease first add some person\n"
     else
       @person_list.each_with_index do |person, index|
-        puts "#{index + 1} [#{person.class.name}] => ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
+        puts "#{index + 1}) [#{person.class.name}] => ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
       end
     end
+  end
+
+  def rental_choice
+    print "Select a book from the following list by number:\n"
+    book_collection
+    return true if @book_list.empty?
+    book_index = gets.chomp.to_i - 1
+
+    print "Select a person from the following list by number:\n"
+    person_collection
+    return true if @person_list.empty?
+    person_index = gets.chomp.to_i - 1
+
+    print 'Date [dd/mm/yyyy] : '
+    date = gets.chomp
+
+    rental = Rental.new(@person_list[person_index], @book_list[book_index], date)
+    @rental_list << rental unless @rental_list.include?(rental)
+
+    puts 'Rental Created Successfully !!'
   end
 
   def person_choice?
@@ -96,6 +124,23 @@ class App
     author = gets.chomp
     @book_list << Book.new(title, author)
     puts 'Book Created Successfully !!'
+  end
+
+  def all_rental
+    print "Enter a person ID: "
+    p_id = gets.chomp
+    if !@person_list.find { |person| person.id == p_id }
+      puts "No rental found with ID: #{p_id}"
+    elsif @rental_list.empty?
+      puts 'Please add some rentals'
+    else
+      puts
+      @rental_list.select do |rental|
+        if rental.person.id == p_id
+          puts "Date: #{rental.date}, Book: '#{rental.book.title}' by #{rental.book.author}"
+        end
+      end
+    end
   end
 
   def run
