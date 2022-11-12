@@ -46,18 +46,12 @@ class App
       person_collection
     when 3
       person_choice?
-      true
     when 4
       book_choice
-      true
     when 5
       rental_choice
-      true
-    when
+    when 6
       all_rental
-      true
-    when 7
-      exit
     end
   end
 
@@ -87,19 +81,17 @@ class App
     print "Select a book from the following list by number:\n"
     book_collection
     return true if @book_list.empty?
-    book_index = gets.chomp.to_i - 1
 
+    book_index = gets.chomp.to_i - 1
     print "Select a person from the following list by number:\n"
     person_collection
     return true if @person_list.empty?
-    person_index = gets.chomp.to_i - 1
 
+    person_index = gets.chomp.to_i - 1
     print 'Date [dd/mm/yyyy] : '
     date = gets.chomp
-
     rental = Rental.new(@person_list[person_index], @book_list[book_index], date)
     @rental_list << rental unless @rental_list.include?(rental)
-
     puts 'Rental Created Successfully !!'
   end
 
@@ -127,7 +119,7 @@ class App
   end
 
   def all_rental
-    print "Enter a person ID: "
+    print 'Enter a person ID: '
     p_id = gets.chomp
     if !@person_list.find { |person| person.id == p_id }
       puts "No rental found with ID: #{p_id}"
@@ -136,9 +128,7 @@ class App
     else
       puts
       @rental_list.select do |rental|
-        if rental.person.id == p_id
-          puts "Date: #{rental.date}, Book: '#{rental.book.title}' by #{rental.book.author}"
-        end
+        puts "Date: #{rental.date}, Book: '#{rental.book.title}' by #{rental.book.author}" if rental.person.id == p_id
       end
     end
   end
@@ -160,7 +150,8 @@ class App
       DOC
       print 'Enter your choice : '
       choice = gets.to_i
-      @return_check = self.choice(choice)
+      exit if choice == 7
+      self.choice(choice)
       puts
     end
   end
