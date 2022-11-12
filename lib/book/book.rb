@@ -1,5 +1,7 @@
+require_relative '../rental/rental'
+
 class Book
-  attr_accessor :title, :author
+  attr_accessor :title, :author, :rentals
 
   # adding default by following Design Patters
   def initialize(title = 'Unknown', author = 'Unknown')
@@ -8,8 +10,7 @@ class Book
     @rentals = []
   end
 
-  def add(rental)
-    rental.book = self
-    @rentals << rental
+  def add_rental(person, date)
+    Rental.new(date, self, person)
   end
 end
