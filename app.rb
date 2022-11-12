@@ -1,8 +1,10 @@
 require './lib/student'
 require './lib/teacher'
+require './lib/book/book'
 
 class App
   def initialize
+    @book_list = []
     @person_list = []
     @return_check = true
   end
@@ -38,6 +40,15 @@ class App
     case num
     when 1
       puts
+      if @book_list.empty?
+        print "\nPlease first add some book\n"
+      else
+        @book_list.each_with_index do |book, index|
+          puts "[#{index + 1}] Title : #{book.title}, Author: #{book.author}"
+        end
+      end
+    when 2
+      puts
       if @person_list.empty?
         print "\nPlease first add some person\n"
       else
@@ -47,6 +58,9 @@ class App
       end
     when 3
       person_choice?
+      true
+    when 4
+      book_choice
       true
     when 7
       exit
@@ -65,6 +79,15 @@ class App
       true
     end
     puts 'Person Created Successfully !!'
+  end
+
+  def book_choice
+    print 'Book Title : '
+    title = gets.chomp
+    print 'Book Author : '
+    author = gets.chomp
+    @book_list << Book.new(title, author)
+    puts "Book Created Successfully !!"
   end
 
   def run
