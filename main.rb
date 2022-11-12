@@ -1,11 +1,33 @@
-require_relative './lib/person'
-require_relative './decorators/decorator'
+#!/usr/bin/env ruby
+require_relative 'app'
 
-person = Person.new(22, 'maximilianus')
-puts person.correct_name
+def main
+  app = App.new
+  puts
+  loop do
+    print <<~DOC
+      Please choose an option by entering a number:
 
-capitalized_person = CapitalizeDecorator.new(person)
-puts capitalized_person.correct_name
+      1 - List all books
+      2 - List all people
+      3 - Create a person
+      4 - Create a book
+      5 - Create a rental
+      6 - List all rentals for a given person id
+      7 - Exit
 
-capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
-puts capitalized_trimmed_person.correct_name
+    DOC
+    print 'Enter your choice : '
+    choice = gets.to_i
+    exit if choice == 7
+    app.choice(choice)
+    puts
+  end
+end
+
+print <<~DOC
+  ***********************************************
+  Welcome to OOP School Library Management System
+  ***********************************************
+DOC
+main
