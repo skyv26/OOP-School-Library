@@ -39,23 +39,9 @@ class App
   def choice(num)
     case num
     when 1
-      puts
-      if @book_list.empty?
-        print "\nPlease first add some book\n"
-      else
-        @book_list.each_with_index do |book, index|
-          puts "[#{index + 1}] Title : #{book.title}, Author: #{book.author}"
-        end
-      end
+      book_collection
     when 2
-      puts
-      if @person_list.empty?
-        print "\nPlease first add some person\n"
-      else
-        @person_list.each_with_index do |person, index|
-          puts "#{index + 1} [#{person.class.name}] => ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
-        end
-      end
+      person_collection
     when 3
       person_choice?
       true
@@ -64,6 +50,28 @@ class App
       true
     when 7
       exit
+    end
+  end
+
+  def book_collection
+    puts
+    if @book_list.empty?
+      print "\nPlease first add some book\n"
+    else
+      @book_list.each_with_index do |book, index|
+        puts "[#{index + 1}] Title : #{book.title}, Author: #{book.author}"
+      end
+    end
+  end
+
+  def person_collection
+    puts
+    if @person_list.empty?
+      print "\nPlease first add some person\n"
+    else
+      @person_list.each_with_index do |person, index|
+        puts "#{index + 1} [#{person.class.name}] => ID: #{person.id}, Name: #{person.name}, Age: #{person.age}"
+      end
     end
   end
 
@@ -87,7 +95,7 @@ class App
     print 'Book Author : '
     author = gets.chomp
     @book_list << Book.new(title, author)
-    puts "Book Created Successfully !!"
+    puts 'Book Created Successfully !!'
   end
 
   def run
