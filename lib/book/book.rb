@@ -1,7 +1,8 @@
 class Book
   attr_accessor :title, :author
-  
-  def initialize(title = 'Unknown', author = 'Unknown') # adding default by following Design Patters
+
+  # adding default by following Design Patters
+  def initialize(title = 'Unknown', author = 'Unknown')
     @title = title
     @author = author
     @rentals = []
